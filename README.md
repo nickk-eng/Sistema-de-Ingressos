@@ -369,29 +369,11 @@ Verifique:
 - Se o NetBeans conseguiu baixar as dependências.
 - Se existe conexão com a internet.
 
-## Como entregar no GitHub
-
-1. Crie um repositório no GitHub.
-2. No terminal, dentro da pasta do projeto, execute:
-
-```bash
-git init
-git add .
-git commit -m "Sistema de ingressos para eventos"
-git branch -M main
-git remote add origin URL_DO_REPOSITORIO
-git push -u origin main
-```
-
-Substitua `URL_DO_REPOSITORIO` pela URL do seu repositório.
 
 ## Autor
 
-Preencha com seus dados:
-
 ```text
-Nome: Seu nome
-Curso: Seu curso
-Disciplina: Nome da disciplina
-Instituição: Nome da instituição
+Nome: Nicholas Moura
+Curso: Sistemas de Informação
+Instituição: UMC
 ```
