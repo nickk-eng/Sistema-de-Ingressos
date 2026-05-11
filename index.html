@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financeiro 3D</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">3D</span>
+        <div>
+          <strong>Financeiro 3D</strong>
+          <small>Micro empresa</small>
+        </div>
+      </div>
+
+      <nav class="nav-tabs" aria-label="Abas principais">
+        <button class="nav-tab active" data-tab="dashboard">Dashboard</button>
+        <button class="nav-tab" data-tab="filaments">Filamentos</button>
+        <button class="nav-tab" data-tab="records">Produtos</button>
+        <button class="nav-tab" data-tab="settings">Custos</button>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Controle financeiro</p>
+          <h1>Vendas e custos de impressao 3D</h1>
+        </div>
+        <button class="ghost-button" id="exportDataBtn" type="button">Exportar dados</button>
+      </header>
+
+      <section class="tab-panel active" id="dashboard">
+        <div class="metrics-grid">
+          <article class="metric-card">
+            <span>Receita</span>
+            <strong id="revenueMetric">R$ 0,00</strong>
+          </article>
+          <article class="metric-card">
+            <span>Gastos totais</span>
+            <strong id="costMetric">R$ 0,00</strong>
+          </article>
+          <article class="metric-card highlight">
+            <span>Lucro estimado</span>
+            <strong id="profitMetric">R$ 0,00</strong>
+          </article>
+          <article class="metric-card">
+            <span>Filamento usado</span>
+            <strong id="gramsMetric">0 g</strong>
+          </article>
+        </div>
+
+        <div class="dashboard-layout">
+          <section class="panel">
+            <div class="panel-header">
+              <h2>Resumo por filamento</h2>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Filamento</th>
+                    <th>Estoque</th>
+                    <th>Usado</th>
+                    <th>Custo/g</th>
+                  </tr>
+                </thead>
+                <tbody id="stockSummary"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-header">
+              <h2>Ultimos registros</h2>
+            </div>
+            <div id="recentRecords" class="activity-list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="filaments">
+        <div class="section-grid">
+          <section class="panel">
+            <div class="panel-header">
+              <h2>Cadastrar filamento</h2>
+            </div>
+            <form id="filamentForm" class="form-grid">
+              <label>
+                Nome
+                <input id="filamentName" type="text" placeholder="PETG preto" required>
+              </label>
+              <label>
+                Tipo
+                <input id="filamentType" type="text" placeholder="PETG, PLA, ABS">
+              </label>
+              <label>
+                Peso comprado (kg)
+                <input id="filamentKg" type="number" min="0.01" step="0.01" value="1" required>
+              </label>
+              <label>
+                Valor pago (R$)
+                <input id="filamentPrice" type="number" min="0" step="0.01" placeholder="70,00" required>
+              </label>
+              <button class="primary-button" type="submit">Salvar filamento</button>
+            </form>
+          </section>
+
+          <section class="panel wide">
+            <div class="panel-header">
+              <h2>Filamentos cadastrados</h2>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Tipo</th>
+                    <th>Inicial</th>
+                    <th>Disponivel</th>
+                    <th>Valor/g</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="filamentTable"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="records">
+        <div class="section-grid">
+          <section class="panel">
+            <div class="panel-header">
+              <h2>Registrar produto</h2>
+            </div>
+            <form id="recordForm" class="form-grid">
+              <label>
+                Tipo de registro
+                <select id="recordType">
+                  <option value="sale">Produto vendido</option>
+                  <option value="personal">Impressao para mim</option>
+                </select>
+              </label>
+              <label>
+                Produto
+                <input id="productName" type="text" placeholder="Suporte, chaveiro, peca..." required>
+              </label>
+              <label>
+                Filamento
+                <select id="recordFilament" required></select>
+              </label>
+              <label>
+                Gramas usadas
+                <input id="recordGrams" type="number" min="0.1" step="0.1" placeholder="100" required>
+              </label>
+
+              <div class="sale-fields">
+                <label>
+                  Valor vendido (R$)
+                  <input id="salePrice" type="number" min="0" step="0.01" placeholder="45,00">
+                </label>
+                <label>
+                  Cliente
+                  <input id="clientName" type="text" placeholder="Nome do cliente">
+                </label>
+                <label>
+                  Telefone/contato
+                  <input id="clientContact" type="text" placeholder="WhatsApp, e-mail">
+                </label>
+                <label>
+                  Horas de impressao
+                  <input id="printHours" type="number" min="0" step="0.1" placeholder="6">
+                </label>
+              </div>
+
+              <div class="estimate-box">
+                <span>Previa automatica</span>
+                <strong id="recordEstimate">R$ 0,00</strong>
+                <small id="estimateDetails">Escolha um filamento para calcular.</small>
+              </div>
+
+              <button class="primary-button" type="submit">Registrar</button>
+            </form>
+          </section>
+
+          <section class="panel wide">
+            <div class="panel-header">
+              <h2>Historico</h2>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Data</th>
+                    <th>Produto</th>
+                    <th>Tipo</th>
+                    <th>Cliente</th>
+                    <th>Custos</th>
+                    <th>Venda</th>
+                    <th>Lucro</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="recordsTable"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="settings">
+        <section class="panel settings-panel">
+          <div class="panel-header">
+            <h2>Parametros de custo</h2>
+          </div>
+          <form id="settingsForm" class="form-grid settings-grid">
+            <label>
+              Consumo da impressora (kW)
+              <input id="printerKw" type="number" min="0" step="0.01" value="0.12">
+            </label>
+            <label>
+              Valor da energia (R$/kWh)
+              <input id="energyKwh" type="number" min="0" step="0.01" value="0.95">
+            </label>
+            <label>
+              Desgaste da maquina (R$/hora)
+              <input id="wearHour" type="number" min="0" step="0.01" value="1.50">
+            </label>
+            <button class="primary-button" type="submit">Salvar custos</button>
+          </form>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
