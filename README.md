@@ -317,9 +317,7 @@ Se o banco tiver documentos antigos da primeira versão, apague a collection `in
 Preencher antes da entrega:
 
 ```text
-Nome:
-Curso:
-Disciplina:
-Instituição:
-Professor(a):
+Nome: Nicholas Moura
+Curso: Sistemas de Informação
+Disciplina: POO
 ```
